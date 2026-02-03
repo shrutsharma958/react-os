@@ -1,13 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import TodoItem from './components/TodoItems'
 import TodoForm from './components/TodoForm'
+import { TodoProvider } from './contexts/TodoContext'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([])
+
+
+  const addTodo=(todo)=>{
+    setTasks((prev)=>[...prev,todo]
+    )
+  }
+
+  useEffect(()=>{
+
+  },[])
+
 
   return (
-    <>
+    <TodoProvider value={{tasks,addTodo}}>
       <div className="bg-[#172842] min-h-screen py-8">
                 <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
                     <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
@@ -17,11 +29,16 @@ function App() {
                     </div>
                     <div className="flex flex-wrap gap-y-3">
                         {/*Loop and Add TodoItem here */}
-                        <TodoItem/>
+                        {tasks.map((task)=>(
+                          <div key={task.id}>
+                              <TodoItem task={task}/>
+                              </div>
+                        ))}
+                        
                     </div>
                 </div>
             </div>
-    </>
+    </TodoProvider>
   )
 }
 

@@ -1,9 +1,11 @@
-function TodoItem({ todo }) {
-    
+import { useState } from "react";
+
+function TodoItem({ task }) {
+    const [msg,setMsg]=useState(task.msg)
 
     return (
         <div
-            className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black
+            className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-white
             }`}
         >
             <input
@@ -14,6 +16,8 @@ function TodoItem({ todo }) {
             <input
                 type="text"
                 className={`border outline-none w-full bg-transparent rounded-lg`}
+                value={msg}
+                 onChange={(e) => setMsg(e.target.value)}
             />
             {/* Edit, Save Button */}
             <button
